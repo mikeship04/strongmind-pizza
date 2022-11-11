@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+To run locally
+
+in one terminal window run the server
+rails s
+
+in the other terminal window run the client side
+npm start --prefix-client
