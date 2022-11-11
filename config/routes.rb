@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :toppings
+  resources :pizzas
   
   get '/hello', to: 'application#hello_world'
 

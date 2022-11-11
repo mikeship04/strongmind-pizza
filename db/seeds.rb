@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+puts " Seeding data..."
+
+puts "Deleting all data"
+Topping.destroy_all
+Pizza.destroy_all
+
+puts "Creating toppings..."
+t1 = Topping.create(topping: 'Pepperoni')
+t2 = Topping.create(topping: 'Sausage')
+t3 = Topping.create(topping: 'Olive')
+t4 = Topping.create(topping: 'Green Pepper')
+t5 = Topping.create(topping: 'Onion')
+t6 = Topping.create(topping: 'Bacon')
+
+puts "Creating pizzas..."
+p1 = Pizza.create(name: 'Pepperoni pizza')
+p2 = Pizza.create(name: 'Supreme pizza')
+
+puts "✅ Done seeding!"
