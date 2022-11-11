@@ -1,3 +1,3 @@
 class Topping < ApplicationRecord
-  validates :topping, uniqueness: true
+  has_and_belongs_to_many :pizzas
 end

@@ -10,18 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_200610) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_11_232633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "pizzas", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "pizzas_toppings", id: false, force: :cascade do |t|
+    t.bigint "pizza_id"
+    t.bigint "topping_id"
+    t.index ["pizza_id"], name: "index_pizzas_toppings_on_pizza_id"
+    t.index ["topping_id"], name: "index_pizzas_toppings_on_topping_id"
+  end
+
   create_table "toppings", force: :cascade do |t|
-    t.string "topping"
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
