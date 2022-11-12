@@ -29,7 +29,7 @@ class ToppingsController < ApplicationController
   private
  
   def topping_params
-    params.permit(:topping)
+    params.permit(:name)
   end
 
 end

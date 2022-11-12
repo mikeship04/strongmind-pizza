@@ -2,6 +2,11 @@ class PizzasController < ApplicationController
   def index
     render json: Pizza.all, include: :toppings
   end
+
+  def show
+    pizza = Pizza.find(params[:id])
+    render json: pizza
+  end
  
   def create
     pizza = Pizza.create!(pizza_params)
