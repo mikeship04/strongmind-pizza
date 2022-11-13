@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { Card, CardContent, Typography, Modal, Box, TextField, Button } from '@mui/material'
+import { Card, CardContent, Typography, Modal, Box, TextField, Button, CardActionArea } from '@mui/material'
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
 
-function Topping({topping, deleteTopping}) {
+function Topping({topping, deleteTopping, updateTopping}) {
   const [open, setOpen] = useState(false)
   const [editTopping, setEditTopping] = useState('')
   const handleOpen = () => setOpen(true)
@@ -30,7 +30,10 @@ function Topping({topping, deleteTopping}) {
       body: JSON.stringify({name: `${editTopping}`})
     })
     .then(res => res.json())
-    .then(console.log)
+    .then(data => {
+      updateTopping(data)
+    })
+    handleClose()
   }
 
   function handleDelete() {
@@ -40,20 +43,22 @@ function Topping({topping, deleteTopping}) {
     .then(deleteTopping(topping.id))
 }
 
-  function handleEeditTopping(e){
+  function handleEditTopping(e){
     setEditTopping(e.target.value)
   }
 
   
   return (
-    <Grid item xs={2}>
+    <Grid >
       <Card
       onClick={handleOpen}
       sx={{ ':hover': {boxShadow: 20, }}}
       >
-        <CardContent>
-          <Typography>{topping.name}</Typography>
-        </CardContent>
+        <CardActionArea>
+          <CardContent>
+            <Typography>{topping.name}</Typography>
+          </CardContent>
+        </CardActionArea>
       </Card>
       <Modal
       open={open}
@@ -63,17 +68,17 @@ function Topping({topping, deleteTopping}) {
       >
       <Box sx={style}>
         <form onSubmit={handleUpdate}>
-        <TextField
-        margin="normal"
-        required
-        id="name"
-        label={topping.name}
-        placeholder={topping.name}
-        value={editTopping}
-        onChange={handleEeditTopping}
-        />
-        <Button variant="contained" type="submit">Sumit</Button>
-        <Button onClick={handleDelete} variant="contained">Delete</Button>
+          <TextField
+          margin="normal"
+          required
+          id="name"
+          label={topping.name}
+          placeholder={topping.name}
+          value={editTopping}
+          onChange={handleEditTopping}
+          />
+        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Edit Topping</Button>
+        <Button style={{marginTop: "30px", marginLeft: "10px"}} onClick={handleDelete} variant="contained">Delete</Button>
         </form>
       </Box>
       </Modal>
