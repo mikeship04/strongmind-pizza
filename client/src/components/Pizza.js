@@ -22,7 +22,7 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza}) {
+function Pizza({pizza, deletePizza, updatePizza, topping}) {
   const [open, setOpen] = useState(false)
   const [editPizza, setEditPizza] = useState('')
   const handleOpen = () => setOpen(true)

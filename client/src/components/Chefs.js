@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { Container, Box } from '@mui/system'
 
-function Chefs() {
+function Chefs({topping}) {
   const [pizza, setPizza] = useState()
   const [newPizza, setNewPizza] = useState('')
   let navigate = useNavigate()
@@ -22,7 +22,10 @@ function Chefs() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name: `${newPizza}`})
     })
-    .then((res) => res.json())
+    .then(response => {return response.json()})
+    .then((res) => {
+      setPizza([...pizza, res])
+    })
     .then(setNewPizza(''))
   }
 
@@ -53,13 +56,15 @@ function Chefs() {
     })
     setPizza(updatedPizza)
   }
+  // add multi select for ingredients, show all available ingredients
 
-  const renderPizza = pizza?.map(p => {
+  const renderPizza = (pizza) => pizza?.map(p => {
     return <Pizza
     key={p.id}
     pizza={p}
     updatePizza={updatePizza}
     deletePizza={deletePizza}
+    topping={topping}
     />
   })
 
@@ -88,7 +93,7 @@ function Chefs() {
     <Container sx={{height: 1000, width: 1100}}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm:2, md: 3 }}>
-          {renderPizza}
+          {renderPizza(pizza)}
         </Grid>
       </Box>
     </Container>
