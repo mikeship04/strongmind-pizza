@@ -1,22 +1,15 @@
 import { Box, Grid, TextField, Button } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Topping from './Topping'
 
 
 const  rootStyle = { marginTop: '70px' }
-function StoreOwner() {
+function StoreOwner({topping, setTopping}) {
   const navigate = useNavigate()
-  const [topping, setTopping] = useState()
   const [newTopping, setNewTopping] = useState('')
-
-  useEffect(() => {
-    fetch("/toppings")
-    .then((res) => res.json())
-    .then((data) => setTopping(data))
-  }, [])
   
   function handleNewTopping(e){
     setNewTopping(e.target.value)
@@ -31,10 +24,7 @@ function StoreOwner() {
     })
     .then(response => {return response.json()})
     .then((res) => {
-      const toppings = topping
-      toppings.push(res)
-      setTopping(toppings)
-      console.log('lol')
+      setTopping([...topping, res])
     })
     //not working
     .then(setNewTopping(''))
@@ -60,7 +50,7 @@ function StoreOwner() {
         return t
       }
     })
-    setTopping(updatedToppings)
+    setTopping([...updatedToppings, data])
   }
   
   const renderToppings = (topping) => topping?.map(t => {
