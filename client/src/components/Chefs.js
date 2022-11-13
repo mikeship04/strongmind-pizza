@@ -53,6 +53,7 @@ function Chefs() {
     })
     setPizza(updatedPizza)
   }
+  // add multi select for ingredients, show all available ingredients
 
   const renderPizza = pizza?.map(p => {
     return <Pizza
