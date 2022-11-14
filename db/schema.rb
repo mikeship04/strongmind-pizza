@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_232633) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pizzas_toppings", id: false, force: :cascade do |t|
+  create_table "pizzas_toppings", force: :cascade do |t|
     t.bigint "pizza_id"
     t.bigint "topping_id"
     t.index ["pizza_id"], name: "index_pizzas_toppings_on_pizza_id"

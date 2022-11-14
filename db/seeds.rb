@@ -23,5 +23,8 @@ t4 = Topping.create(name: 'Green Pepper')
 t5 = Topping.create(name: 'Onion')
 t6 = Topping.create(name: 'Bacon')
 
+puts "Adding toppings to pizzas..."
+p1.toppings = [t1]
+p2.toppings = [t1, t2, t3, t4, t5]
 
 puts "✅ Done seeding!"
