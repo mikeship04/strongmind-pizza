@@ -1,26 +1,27 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Pizza from './Pizza'
 import { Button, TextField } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { Container, Box } from '@mui/system'
 
-function Chefs({topping}) {
-  const [pizza, setPizza] = useState()
+function Chefs({topping, pizza, setPizza}) {
   const [newPizza, setNewPizza] = useState('')
+  const [editToppings, setEditToppings] = useState([])
   let navigate = useNavigate()
 
   function handleNewPizza(e){
     setNewPizza(e.target.value)
   }
 
+  //manage this to get proper create
   function handleAddPizza(e){
     e.preventDefault()
     fetch(`/pizzas`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name: `${newPizza}`})
+      body: JSON.stringify({name: `${newPizza}`, toppings: []})
     })
     .then(response => {return response.json()})
     .then((res) => {
@@ -28,12 +29,6 @@ function Chefs({topping}) {
     })
     .then(setNewPizza(''))
   }
-
-  useEffect(() => {
-    fetch("/pizzas")
-    .then((res) => res.json())
-    .then((data) => setPizza(data))
-  }, [])
   
   function deletePizza(id){
     const deletedPizza = pizza.filter((p) => {
@@ -47,16 +42,18 @@ function Chefs({topping}) {
   }
 
   function updatePizza(data){
-    const updatedPizza = pizza.filter((p) => {
-      if (p.id === data.id) {
-        return data
-      } else {
-        return p
-      }
-    })
-    setPizza(updatedPizza)
+    const updatedPizza = pizza.filter(p => p.id !== data.id)
+    setPizza([...updatedPizza, data])
   }
-  // add multi select for ingredients, show all available ingredients
+
+  function finalToppings(id){
+    const idx = editToppings.indexOf(id)
+    if (editToppings.includes(id)){
+        editToppings.splice(idx, 1)
+    } else{
+      setEditToppings([...editToppings, id])
+    }
+  }
 
   const renderPizza = (pizza) => pizza?.map(p => {
     return <Pizza
@@ -65,6 +62,8 @@ function Chefs({topping}) {
     updatePizza={updatePizza}
     deletePizza={deletePizza}
     topping={topping}
+    editToppings={editToppings}
+    final={finalToppings}
     />
   })
 

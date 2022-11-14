@@ -47,7 +47,6 @@ function Topping({topping, deleteTopping, updateTopping}) {
     setEditTopping(e.target.value)
   }
 
-  
   return (
     <Grid >
       <Card

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PizzaToppings from './PizzaToppings'
+import ToppingCheckBox from './ToppingCheckBox'
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { 
   Card, 
@@ -9,7 +10,8 @@ import {
   Modal,
   Box,
   Button,
-  TextField } from '@mui/material'
+  TextField,
+  } from '@mui/material'
   const style = {
     position: 'absolute',
     top: '50%',
@@ -22,13 +24,13 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping}) {
+function Pizza({pizza, deletePizza, updatePizza, topping, final, editToppings}) {
   const [open, setOpen] = useState(false)
   const [editPizza, setEditPizza] = useState('')
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   
-  const renderToppings = pizza.toppings.map((t) => {
+  const renderToppings = pizza?.toppings?.map((t) => {
     return <PizzaToppings key={t.id} toppings={t}/>
   })
 
@@ -39,6 +41,11 @@ function Pizza({pizza, deletePizza, updatePizza, topping}) {
     .then(deletePizza(pizza.id))
   }
 
+  const pizzaObject = {
+    name: `${editPizza}`,
+    toppings: [editToppings]
+  }
+
   function handleUpdatePizza(e){
     e.preventDefault()
     fetch(`pizzas/${pizza.id}`, {
@@ -46,7 +53,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping}) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({name: `${editPizza}`})
+      body: JSON.stringify(pizzaObject)
     })
     .then(res => res.json())
     .then(data => {
@@ -58,6 +65,10 @@ function Pizza({pizza, deletePizza, updatePizza, topping}) {
   function handleEditPizza(e){
     setEditPizza(e.target.value)
   }
+  
+  const renderAvailabletoppings = topping?.map((t) => {
+    return <ToppingCheckBox finalToppings={final} key={t.id} topping={t} pizza={pizza}/>
+  })
 
   return (
     <>
@@ -93,6 +104,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping}) {
           />
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Edit Pizza</Button>
         <Button style={{marginTop: "30px", marginLeft: "10px"}} onClick={handleDelete} variant="contained">Delete</Button>
+        {renderAvailabletoppings}
         </form>
         </Box>
       </Modal>

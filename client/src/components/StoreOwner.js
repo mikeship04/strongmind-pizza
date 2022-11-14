@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Topping from './Topping'
 
-
 const  rootStyle = { marginTop: '70px' }
 function StoreOwner({topping, setTopping}) {
   const navigate = useNavigate()
@@ -15,6 +14,7 @@ function StoreOwner({topping, setTopping}) {
     setNewTopping(e.target.value)
   }
   
+  //add error
   function handleAddToppings(e){
     e.preventDefault()
     fetch(`/toppings`, {
@@ -26,8 +26,8 @@ function StoreOwner({topping, setTopping}) {
     .then((res) => {
       setTopping([...topping, res])
     })
-    //not working
-    .then(setNewTopping(''))
+    //fix
+    setNewTopping('')
   }
   
   function deleteTopping(id) {
@@ -41,15 +41,9 @@ function StoreOwner({topping, setTopping}) {
     setTopping(deletedTopping)
   }
 
+  //manage this to get proper update
   function updateTopping(data){
-    const updatedToppings = topping.filter((t) => {
-      // t.id === data.id
-      if (t.id === data.id) {
-        return data
-      } else {
-        return t
-      }
-    })
+    const updatedToppings = topping.filter(t => t.id !== data.id)
     setTopping([...updatedToppings, data])
   }
   

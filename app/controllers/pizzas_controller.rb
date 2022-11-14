@@ -5,7 +5,7 @@ class PizzasController < ApplicationController
 
   def show
     pizza = Pizza.find(params[:id])
-    render json: pizza
+    render json: pizza, include: :toppings
   end
  
   def create
@@ -15,8 +15,11 @@ class PizzasController < ApplicationController
  
   def update
     pizza = Pizza.find(params[:id])
+    pizza.toppings = []
+    toppings = params[:toppings]
+    toppings.each {|topping| pizza.toppings << Topping.find(topping)}
     pizza.update(pizza_params)
-    render json: pizza
+    render json: pizza, include: :toppings
   end
  
   def destroy
