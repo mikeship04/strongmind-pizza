@@ -11,6 +11,8 @@ class PizzasController < ApplicationController
   def create
     pizza = Pizza.create!(pizza_params)
     render json: pizza, status: :created
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
  
   def update

@@ -12,6 +12,8 @@ class ToppingsController < ApplicationController
   def create
     topping = Topping.create!(topping_params)
     render json: topping, status: :created
+  rescue ActiveRecord::RecordInvalid => e
+    render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end
  
   def update

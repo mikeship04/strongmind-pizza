@@ -9,12 +9,12 @@ const  rootStyle = { marginTop: '70px' }
 function StoreOwner({topping, setTopping}) {
   const navigate = useNavigate()
   const [newTopping, setNewTopping] = useState('')
+  const [errors, setErrors] = useState([])
   
   function handleNewTopping(e){
     setNewTopping(e.target.value)
   }
   
-  //add error
   function handleAddToppings(e){
     e.preventDefault()
     fetch(`/toppings`, {
@@ -22,11 +22,13 @@ function StoreOwner({topping, setTopping}) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name: `${newTopping}`})
     })
-    .then(response => {return response.json()})
-    .then((res) => {
-      setTopping([...topping, res])
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((res) => setTopping([...topping, res]))
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors))
+      }
     })
-    //fix
     setNewTopping('')
   }
   
@@ -41,7 +43,6 @@ function StoreOwner({topping, setTopping}) {
     setTopping(deletedTopping)
   }
 
-  //manage this to get proper update
   function updateTopping(data){
     const updatedToppings = topping.filter(t => t.id !== data.id)
     setTopping([...updatedToppings, data])
@@ -71,6 +72,13 @@ function StoreOwner({topping, setTopping}) {
           onChange={handleNewTopping}
           >
         </TextField>
+        {errors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {errors.map((error) => (
+              <h4 key={error}>{error}</h4>
+              ))}
+            </ul>
+          )}
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Submit</Button>
       </form>
     </div>

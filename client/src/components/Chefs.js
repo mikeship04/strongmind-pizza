@@ -9,13 +9,13 @@ import { Container, Box } from '@mui/system'
 function Chefs({topping, pizza, setPizza}) {
   const [newPizza, setNewPizza] = useState('')
   const [editToppings, setEditToppings] = useState([])
+  const [errors, setErrors] = useState([])
   let navigate = useNavigate()
 
   function handleNewPizza(e){
     setNewPizza(e.target.value)
   }
 
-  //manage this to get proper create
   function handleAddPizza(e){
     e.preventDefault()
     fetch(`/pizzas`, {
@@ -23,9 +23,12 @@ function Chefs({topping, pizza, setPizza}) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({name: `${newPizza}`, toppings: []})
     })
-    .then(response => {return response.json()})
-    .then((res) => {
-      setPizza([...pizza, res])
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((res) => setPizza([...pizza, res]))
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors))
+      }
     })
     .then(setNewPizza(''))
   }
@@ -67,7 +70,6 @@ function Chefs({topping, pizza, setPizza}) {
     />
   })
 
-
   return (
     <>
     <Button 
@@ -86,6 +88,13 @@ function Chefs({topping, pizza, setPizza}) {
           onChange={handleNewPizza}
           >
         </TextField>
+        {errors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {errors.map((error) => (
+              <h4 key={error}>{error}</h4>
+              ))}
+            </ul>
+          )}
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Submit</Button>
       </form>
     </div>
