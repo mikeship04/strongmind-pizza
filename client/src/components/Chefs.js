@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Pizza from './Pizza'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -7,11 +7,18 @@ import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { Container, Box } from '@mui/system'
 import NewPizzaform from './NewPizzaform'
 
-function Chefs({topping, pizza, setPizza}) {
+function Chefs({topping}) {
   const [newPizza, setNewPizza] = useState('')
   const [editToppings, setEditToppings] = useState([])
   const [errors, setErrors] = useState([])
   let navigate = useNavigate()
+  const [pizza, setPizza] = useState()
+
+  useEffect(() => {
+    fetch("/pizzas")
+    .then((res) => res.json())
+    .then((data) => setPizza(data))
+  }, [])
 
   function handleNewPizza(e){
     setNewPizza(e.target.value)
@@ -36,7 +43,7 @@ function Chefs({topping, pizza, setPizza}) {
         response.json().then((errorData) => setErrors(errorData.errors))
       }
     })
-    .then(setNewPizza(''))
+    e.target.reset()
   }
   
   function deletePizza(id){

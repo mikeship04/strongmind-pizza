@@ -26,11 +26,14 @@ import {
 
 function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings}) {
   const [editPizza, setEditPizza] = useState(pizza.name)
+  const [errors, setErrors] = useState([])
   // new state setter/getter
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-  
+  const handleClose = () => {
+    setOpen(false)
+    setEditPizza('')
+  }
   const renderToppings = pizza?.toppings?.map((t) => {
     return <PizzaToppings key={t.id} toppings={t}/>
   })
@@ -58,9 +61,12 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
       },
       body: JSON.stringify(pizzaObject)
     })
-    .then(res => res.json())
-    .then(data => {
-      updatePizza(data)
+    .then((response) => {
+      if (response.ok) {
+        response.json().then((res) => updatePizza(res))
+      } else {
+        response.json().then((errorData) => setErrors(errorData.errors))
+      }
     })
     handleClose()
   }
@@ -87,8 +93,8 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
       sx={{ maxWidth: 250}}>
       <CardActionArea>
           <CardContent>
-            <Typography variant="h4">{pizza.name}</Typography>
-              <Typography variant="h6">{renderToppings}</Typography>
+            <Typography variant="h5">{pizza.name}</Typography>
+              <Typography variant="body1">{renderToppings}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -109,6 +115,13 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
           value={editPizza}
           onChange={handleEditPizza}
           />
+          {errors.length > 0 && (
+          <ul style={{ color: "red" }}>
+            {errors.map((error) => (
+              <h4 key={error}>{error}</h4>
+              ))}
+            </ul>
+          )}
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Edit Pizza</Button>
         <Button style={{marginTop: "30px", marginLeft: "10px"}} onClick={handleDelete} variant="contained">Delete</Button>
         {renderAvailabletoppings}

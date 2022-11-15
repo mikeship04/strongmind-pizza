@@ -40,7 +40,9 @@ function NewPizzaform({errors, handleAddPizza, handleNewPizza, newPizza, topping
     <form onSubmit={handleAddPizza}>
         <TextField
           margin="normal"
-          id="newTopping"
+          id="newPizza"
+          label="enter new pizza"
+          placeholder="enter new pizza"
           required
           value={newPizza.name} 
           onChange={handleNewPizza}

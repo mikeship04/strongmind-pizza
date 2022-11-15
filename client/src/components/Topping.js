@@ -66,11 +66,8 @@ function Topping({topping, deleteTopping, updateTopping}) {
 
   return (
     <Grid item xs={2}>
-      <Card
-      onClick={handleOpen}
-      sx={{':hover': {boxShadow: 20, }}}
-      >
-        <CardActionArea>
+      <Card sx={{':hover': {boxShadow: 20, }}}>
+        <CardActionArea onClick={handleOpen}>
           <CardContent>
             <Typography variant="h5">{topping.name}</Typography>
           </CardContent>
@@ -89,14 +86,15 @@ function Topping({topping, deleteTopping, updateTopping}) {
         <form onSubmit={handleUpdate}>
           <TextField
           margin="normal"
-          required
           id="name"
+          required
           label={topping.name}
           placeholder={topping.name}
           value={editTopping}
           onChange={handleEditTopping}
           />
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Save Changes</Button>
+        <Button style={{justifyContent: "flex-end"}} onClick={handleClose}>x</Button>
         </form>
       </Box>
       </Modal>

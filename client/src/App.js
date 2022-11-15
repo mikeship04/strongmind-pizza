@@ -7,18 +7,12 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [toppingsArray, setToppingsArray] = useState()
-  const [pizzasArray, setPizzasArray] = useState()
-
+  console.log(toppingsArray)
+  
   useEffect(() => {
     fetch("/toppings")
     .then((res) => res.json())
     .then((data) => setToppingsArray(data))
-  }, [])
-
-  useEffect(() => {
-    fetch("/pizzas")
-    .then((res) => res.json())
-    .then((data) => setPizzasArray(data))
   }, [])
 
     function deleteTopping(id) {
@@ -37,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage/>} />
           <Route path="/storeOwner" element={<StoreOwner deleteTopping={deleteTopping} toppingsArray={toppingsArray} setToppingsArray={setToppingsArray}/>} />
-          <Route path="/chefs" element={<Chefs topping={toppingsArray} pizza={pizzasArray} setPizza={setPizzasArray}/>} />
+          <Route path="/chefs" element={<Chefs topping={toppingsArray}/>} />
         </Routes>
       </div>
     );
