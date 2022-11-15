@@ -72,6 +72,7 @@ function Chefs({topping, pizza, setPizza}) {
     deletePizza={deletePizza}
     topping={topping}
     editToppings={editToppings}
+    setEditToppings={setEditToppings}
     finalToppings={finalToppings}
     />
   })

@@ -24,7 +24,7 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings}) {
+function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings, setEditToppings}) {
   const [editPizza, setEditPizza] = useState('')
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
@@ -71,7 +71,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     return <ToppingCheckBox 
     finalToppings={finalToppings} 
     key={t.id} 
-    topping={t} 
+    topping={t}
     isPreSelected={pizza?.toppings?.filter((top) => top.id === t.id).length > 0}/>
   })
 
