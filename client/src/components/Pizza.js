@@ -24,15 +24,21 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings}) {
+function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings, setEditToppings}) {
   const [editPizza, setEditPizza] = useState(pizza.name)
   const [errors, setErrors] = useState([])
-  // new state setter/getter
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+  const handleOpen = () => {
+  setOpen(true)
+  // const zaIds = pizza.toppings.map((topping) => {
+  //   return topping.id
+  // })
+  // setEditToppings(zaIds)
+  }
   const handleClose = () => {
     setOpen(false)
     setEditPizza('')
+    setEditToppings('')
   }
   const renderToppings = pizza?.toppings?.map((t) => {
     return <PizzaToppings key={t.id} toppings={t}/>
@@ -45,11 +51,15 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     .then(deletePizza(pizza.id))
   }
 
+  const pizzaIds = pizza.toppings.map((topping) => {
+    return topping.id
+  })
+
   const pizzaObject = {
     name: `${editPizza}`,
-    toppings: [...pizza.toppings, editToppings]
+    toppings: [...pizzaIds, ...editToppings]
   }
-  console.log(pizzaObject)
+  // console.log(pizzaObject)
   
 
   function handleUpdatePizza(e){
@@ -77,7 +87,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
   
   const renderAvailabletoppings = topping?.map((t) => {
     return <ToppingCheckBox 
-    finalToppings={finalToppings} 
+    finalToppings={finalToppings}
     key={t.id} 
     topping={t}
     isPreSelected={pizza?.toppings?.filter((top) => top.id === t.id).length > 0}/>
@@ -94,7 +104,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
       <CardActionArea>
           <CardContent>
             <Typography variant="h5">{pizza.name}</Typography>
-              <Typography variant="body1">{renderToppings}</Typography>
+              <Typography variant="h6">{renderToppings}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>

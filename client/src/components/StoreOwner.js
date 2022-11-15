@@ -54,8 +54,10 @@ function StoreOwner({toppingsArray, setToppingsArray, deleteTopping}) {
     style={{marginTop: "20px", marginLeft: "30px"}} 
     onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
       <h1>Store owners</h1>
-      <p>Click on a topping to manage!</p>
-      <p>Or click Trash to delete.</p>
+      <p>
+        Click on a topping to manage!
+        Click on trashcan to remove!
+      </p>
       <form onSubmit={handleAddNewTopping}>
         <TextField
           margin="normal"

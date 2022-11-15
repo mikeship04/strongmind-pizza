@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [toppingsArray, setToppingsArray] = useState()
-  console.log(toppingsArray)
   
   useEffect(() => {
     fetch("/toppings")

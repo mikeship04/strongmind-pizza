@@ -24,6 +24,7 @@ function Chefs({topping}) {
     setNewPizza(e.target.value)
   }
 
+  console.log(editToppings)
   const pizzaObject = {
     name: `${newPizza}`,
     toppings: [editToppings]
@@ -43,6 +44,7 @@ function Chefs({topping}) {
         response.json().then((errorData) => setErrors(errorData.errors))
       }
     })
+    setEditToppings([])
     e.target.reset()
   }
   
