@@ -46,7 +46,7 @@ function NewPizzaform({errors, handleAddPizza, handleNewPizza, newPizza, topping
           onChange={handleNewPizza}
           >
         </TextField>
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Submit</Button>
+        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Add Pizza!</Button>
         {errors.length > 0 && (
           <ul style={{ color: "red" }}>
             {errors.map((error) => (

@@ -21,11 +21,22 @@ function App() {
     .then((data) => setPizzasArray(data))
   }, [])
 
+    function deleteTopping(id) {
+      const deletedTopping = toppingsArray.filter((t) => {
+        if (t.id === id) {
+          return false
+        } else {
+          return true
+        }
+      })
+      setToppingsArray(deletedTopping)
+    }
+
     return (
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage/>} />
-          <Route path="/storeOwner" element={<StoreOwner toppingsArray={toppingsArray} setToppingsArray={setToppingsArray}/>} />
+          <Route path="/storeOwner" element={<StoreOwner deleteTopping={deleteTopping} toppingsArray={toppingsArray} setToppingsArray={setToppingsArray}/>} />
           <Route path="/chefs" element={<Chefs topping={toppingsArray} pizza={pizzasArray} setPizza={setPizzasArray}/>} />
         </Routes>
       </div>

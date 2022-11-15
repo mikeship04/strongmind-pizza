@@ -27,7 +27,10 @@ function Topping({topping, deleteTopping, updateTopping}) {
   const [open, setOpen] = useState(false)
   const [editTopping, setEditTopping] = useState('')
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false) 
+    setEditTopping('')
+  }
 
   function handleUpdate(e){
     e.preventDefault()
@@ -46,10 +49,15 @@ function Topping({topping, deleteTopping, updateTopping}) {
   }
 
   function handleDelete() {
-    fetch(`toppings/${topping.id}`, {
-        method: 'DELETE',
-    })
-    .then(deleteTopping(topping.id))
+    let isExecuted = window.confirm("This topping is in use, are you sure?")
+    if(isExecuted){
+      fetch(`toppings/${topping.id}`, {
+          method: 'DELETE',
+      })
+      .then(deleteTopping(topping.id))
+    } else {
+      console.log('nothing happened')
+    }
 }
 
   function handleEditTopping(e){

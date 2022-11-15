@@ -17,7 +17,7 @@ function LandingPage() {
     <>
       <img width="800" height ="600" src="https://iniziopizza.com/wp-content/uploads/1-1-of-1-2-2048x1174.jpg" alt="some delicious looking pizzas"></img>
     <div>
-      <p>Welcome to Strongmind_pizza Editor!</p>
+      <p>Welcome to Strongmind Pizza Editor!</p>
       <Button 
       onClick={handleStore} 
       variant="contained"

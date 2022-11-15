@@ -82,10 +82,10 @@ function Chefs({topping, pizza, setPizza}) {
     <Button 
     variant="contained" 
     style={{marginTop: "20px", marginLeft: "30px"}} 
-    onClick={() => navigate(-1)}>Back</Button>
+    onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
     <div>
       <h1>Pizza Chefs!</h1>
-        <p>Click on a pizza to manage!</p>
+        <p>Click on a pizza to manage or remove!</p>
         <NewPizzaform 
         topping={topping} 
         newPizza={newPizza} 

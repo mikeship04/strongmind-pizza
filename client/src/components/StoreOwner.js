@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Topping from './Topping'
 
 const  rootStyle = { marginTop: '70px' }
-function StoreOwner({toppingsArray, setToppingsArray}) {
+function StoreOwner({toppingsArray, setToppingsArray, deleteTopping}) {
   const navigate = useNavigate()
   const [newTopping, setNewTopping] = useState('')
   const [errors, setErrors] = useState([])
@@ -30,17 +30,6 @@ function StoreOwner({toppingsArray, setToppingsArray}) {
       }
     })
     e.target.reset()
-  }
-  
-  function deleteTopping(id) {
-    const deletedTopping = toppingsArray.filter((t) => {
-      if (t.id === id) {
-        return false
-      } else {
-        return true
-      }
-    })
-    setToppingsArray(deletedTopping)
   }
 
   function updateTopping(data){

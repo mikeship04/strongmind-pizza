@@ -24,8 +24,9 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings, setEditToppings}) {
-  const [editPizza, setEditPizza] = useState('')
+function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings}) {
+  const [editPizza, setEditPizza] = useState(pizza.name)
+  // new state setter/getter
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -43,8 +44,9 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
 
   const pizzaObject = {
     name: `${editPizza}`,
-    toppings: [editToppings]
+    toppings: [...pizza.toppings, editToppings]
   }
+  console.log(pizzaObject)
   
 
   function handleUpdatePizza(e){
