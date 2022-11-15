@@ -14,6 +14,7 @@ Pizza.destroy_all
 puts "Creating pizzas..."
 p1 = Pizza.create(name: 'Pepperoni pizza')
 p2 = Pizza.create(name: 'Supreme pizza')
+p3 = Pizza.create(name: 'The Meats')
 
 puts "Creating toppings..."
 t1 = Topping.create(name: 'Pepperoni')
@@ -26,5 +27,6 @@ t6 = Topping.create(name: 'Bacon')
 puts "Adding toppings to pizzas..."
 p1.toppings = [t1]
 p2.toppings = [t1, t2, t3, t4, t5]
+p3.toppings = [t1, t2, t6]
 
 puts "✅ Done seeding!"

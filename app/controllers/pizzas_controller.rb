@@ -10,7 +10,10 @@ class PizzasController < ApplicationController
  
   def create
     pizza = Pizza.create!(pizza_params)
-    render json: pizza, status: :created
+    pizza.toppings = []
+    toppings = params[:toppings]
+    toppings.each {|topping| pizza.toppings << Topping.find(topping)}
+    render json: pizza, include: :toppings, status: :created
   rescue ActiveRecord::RecordInvalid => e
     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
   end

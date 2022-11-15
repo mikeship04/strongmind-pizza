@@ -12,6 +12,7 @@ function LandingPage() {
   function handleChef(){
     navigate("/chefs")
   }
+  
   return (
     <div>
       <Button 

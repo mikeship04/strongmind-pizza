@@ -6,28 +6,27 @@ import Chefs from './components/Chefs';
 import { useEffect, useState } from 'react';
 
 function App() {
-  //change to plural pizzas/toppings
-  const [topping, setTopping] = useState()
-  const [pizza, setPizza] = useState()
+  const [toppingsArray, setToppingsArray] = useState()
+  const [pizzasArray, setPizzasArray] = useState()
 
   useEffect(() => {
     fetch("/toppings")
     .then((res) => res.json())
-    .then((data) => setTopping(data))
+    .then((data) => setToppingsArray(data))
   }, [])
 
   useEffect(() => {
     fetch("/pizzas")
     .then((res) => res.json())
-    .then((data) => setPizza(data))
+    .then((data) => setPizzasArray(data))
   }, [])
 
     return (
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage/>} />
-          <Route path="/storeOwner" element={<StoreOwner topping={topping} setTopping={setTopping}/>} />
-          <Route path="/chefs" element={<Chefs topping={topping} pizza={pizza} setPizza={setPizza}/>} />
+          <Route path="/storeOwner" element={<StoreOwner toppingsArray={toppingsArray} setToppingsArray={setToppingsArray}/>} />
+          <Route path="/chefs" element={<Chefs topping={toppingsArray} pizza={pizzasArray} setPizza={setPizzasArray}/>} />
         </Routes>
       </div>
     );

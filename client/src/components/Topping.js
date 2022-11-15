@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import Grid from '@mui/material/Unstable_Grid2'
-import { Card, CardContent, Typography, Modal, Box, TextField, Button, CardActionArea } from '@mui/material'
+import { Card, 
+  CardContent, 
+  Typography, 
+  Modal, 
+  Box, 
+  TextField, 
+  Button, 
+  CardActionArea } from '@mui/material'
 
 const style = {
   position: 'absolute',
@@ -48,7 +55,7 @@ function Topping({topping, deleteTopping, updateTopping}) {
   }
 
   return (
-    <Grid >
+    <Grid>
       <Card
       onClick={handleOpen}
       sx={{ ':hover': {boxShadow: 20, }}}

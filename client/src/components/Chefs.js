@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import Pizza from './Pizza'
-import { Button, TextField } from '@mui/material'
+import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import { Container, Box } from '@mui/system'
+import NewPizzaform from './NewPizzaform'
 
 function Chefs({topping, pizza, setPizza}) {
   const [newPizza, setNewPizza] = useState('')
@@ -16,12 +17,17 @@ function Chefs({topping, pizza, setPizza}) {
     setNewPizza(e.target.value)
   }
 
+  const pizzaObject = {
+    name: `${newPizza}`,
+    toppings: [editToppings]
+  }
+
   function handleAddPizza(e){
     e.preventDefault()
     fetch(`/pizzas`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({name: `${newPizza}`, toppings: []})
+      body: JSON.stringify(pizzaObject)
     })
     .then((response) => {
       if (response.ok) {
@@ -66,7 +72,7 @@ function Chefs({topping, pizza, setPizza}) {
     deletePizza={deletePizza}
     topping={topping}
     editToppings={editToppings}
-    final={finalToppings}
+    finalToppings={finalToppings}
     />
   })
 
@@ -79,24 +85,13 @@ function Chefs({topping, pizza, setPizza}) {
     <div>
       <h1>Pizza Chefs!</h1>
         <p>Click on a pizza to manage!</p>
-        <form onSubmit={handleAddPizza}>
-        <TextField
-          margin="normal"
-          id="newTopping"
-          required
-          value={newPizza.name} 
-          onChange={handleNewPizza}
-          >
-        </TextField>
-        {errors.length > 0 && (
-          <ul style={{ color: "red" }}>
-            {errors.map((error) => (
-              <h4 key={error}>{error}</h4>
-              ))}
-            </ul>
-          )}
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Submit</Button>
-      </form>
+        <NewPizzaform 
+        topping={topping} 
+        newPizza={newPizza} 
+        errors={errors} 
+        handleAddPizza={handleAddPizza} 
+        handleNewPizza={handleNewPizza}
+        final={finalToppings}/>
     </div>
     <Container sx={{height: 1000, width: 1100}}>
       <Box sx={{ flexGrow: 1 }}>

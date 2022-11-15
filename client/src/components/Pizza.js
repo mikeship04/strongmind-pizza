@@ -24,9 +24,9 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping, final, editToppings}) {
-  const [open, setOpen] = useState(false)
+function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings}) {
   const [editPizza, setEditPizza] = useState('')
+  const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   
@@ -45,6 +45,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, final, editToppings}) 
     name: `${editPizza}`,
     toppings: [editToppings]
   }
+  
 
   function handleUpdatePizza(e){
     e.preventDefault()
@@ -67,7 +68,11 @@ function Pizza({pizza, deletePizza, updatePizza, topping, final, editToppings}) 
   }
   
   const renderAvailabletoppings = topping?.map((t) => {
-    return <ToppingCheckBox finalToppings={final} key={t.id} topping={t} pizza={pizza}/>
+    return <ToppingCheckBox 
+    finalToppings={finalToppings} 
+    key={t.id} 
+    topping={t} 
+    isPreSelected={pizza?.toppings?.filter((top) => top.id === t.id).length > 0}/>
   })
 
   return (
@@ -77,7 +82,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, final, editToppings}) 
     >
       <Card 
       onClick={handleOpen}
-      sx={{ ':hover': {boxShadow: 20, }}}>
+      sx={{ maxWidth: 345,  ':hover': {boxShadow: 20, }}}>
       <CardActionArea>
           <CardContent>
             <Typography variant="h3">{pizza.name}</Typography>

@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom'
 import Topping from './Topping'
 
 const  rootStyle = { marginTop: '70px' }
-function StoreOwner({topping, setTopping}) {
+function StoreOwner({toppingsArray, setToppingsArray}) {
   const navigate = useNavigate()
   const [newTopping, setNewTopping] = useState('')
   const [errors, setErrors] = useState([])
   
-  function handleNewTopping(e){
+  function handleSetNewTopping(e){
     setNewTopping(e.target.value)
   }
   
-  function handleAddToppings(e){
+  function handleAddNewTopping(e){
     e.preventDefault()
     fetch(`/toppings`, {
       method: 'POST',
@@ -24,7 +24,7 @@ function StoreOwner({topping, setTopping}) {
     })
     .then((response) => {
       if (response.ok) {
-        response.json().then((res) => setTopping([...topping, res]))
+        response.json().then((res) => setToppingsArray([...toppingsArray, res]))
       } else {
         response.json().then((errorData) => setErrors(errorData.errors))
       }
@@ -33,25 +33,25 @@ function StoreOwner({topping, setTopping}) {
   }
   
   function deleteTopping(id) {
-    const deletedTopping = topping.filter((t) => {
+    const deletedTopping = toppingsArray.filter((t) => {
       if (t.id === id) {
         return false
       } else {
         return true
       }
     })
-    setTopping(deletedTopping)
+    setToppingsArray(deletedTopping)
   }
 
   function updateTopping(data){
-    const updatedToppings = topping.filter(t => t.id !== data.id)
-    setTopping([...updatedToppings, data])
+    const updatedToppings = toppingsArray.filter(t => t.id !== data.id)
+    setToppingsArray([...updatedToppings, data])
   }
   
-  const renderToppings = (topping) => topping?.map(t => {
+  const renderToppings = (toppingsArray) => toppingsArray?.map(topping => {
     return <Topping
-    key={t.id}
-    topping={t}
+    key={topping.id}
+    topping={topping}
     deleteTopping={deleteTopping}
     updateTopping={updateTopping}
     />
@@ -59,17 +59,20 @@ function StoreOwner({topping, setTopping}) {
   
   return (
     <>
-    <Button variant="contained" style={{marginTop: "20px", marginLeft: "30px"}} onClick={() => navigate(-1)}>Back</Button>
+    <Button 
+    variant="contained" 
+    style={{marginTop: "20px", marginLeft: "30px"}} 
+    onClick={() => navigate(-1)}>Back</Button>
     <div>
       <h1>Store owners</h1>
       <p>Click on a topping to manage!</p>
-      <form onSubmit={handleAddToppings}>
+      <form onSubmit={handleAddNewTopping}>
         <TextField
           margin="normal"
           id="newTopping"
           required
           value={newTopping.name} 
-          onChange={handleNewTopping}
+          onChange={handleSetNewTopping}
           >
         </TextField>
         {errors.length > 0 && (
@@ -79,13 +82,16 @@ function StoreOwner({topping, setTopping}) {
               ))}
             </ul>
           )}
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Submit</Button>
+        <Button 
+        style={{marginTop: "30px", marginLeft: "10px"}} 
+        variant="contained" 
+        type="Submit">Submit</Button>
       </form>
     </div>
     <Container style={rootStyle} sx={{height: 1000, width: 1100}}>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm:2, md: 3 }}>
-          {renderToppings(topping)}
+        <Grid container spacing={2}>
+          {renderToppings(toppingsArray)}
         </Grid>
       </Box>
     </Container>
