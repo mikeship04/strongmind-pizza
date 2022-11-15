@@ -82,10 +82,10 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     >
       <Card 
       onClick={handleOpen}
-      sx={{ maxWidth: 345,  ':hover': {boxShadow: 20, }}}>
+      sx={{ maxWidth: 250}}>
       <CardActionArea>
           <CardContent>
-            <Typography variant="h3">{pizza.name}</Typography>
+            <Typography variant="h4">{pizza.name}</Typography>
               <Typography variant="h6">{renderToppings}</Typography>
           </CardContent>
         </CardActionArea>

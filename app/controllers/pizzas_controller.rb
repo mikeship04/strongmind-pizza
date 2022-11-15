@@ -1,4 +1,5 @@
 class PizzasController < ApplicationController
+  
   def index
     render json: Pizza.all, include: :toppings
   end

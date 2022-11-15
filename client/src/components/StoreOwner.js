@@ -29,7 +29,7 @@ function StoreOwner({toppingsArray, setToppingsArray}) {
         response.json().then((errorData) => setErrors(errorData.errors))
       }
     })
-    setNewTopping('')
+    e.target.reset()
   }
   
   function deleteTopping(id) {
@@ -59,22 +59,24 @@ function StoreOwner({toppingsArray, setToppingsArray}) {
   
   return (
     <>
+    <div>
     <Button 
     variant="contained" 
     style={{marginTop: "20px", marginLeft: "30px"}} 
-    onClick={() => navigate(-1)}>Back</Button>
-    <div>
+    onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
       <h1>Store owners</h1>
       <p>Click on a topping to manage!</p>
+      <p>Or click Trash to delete.</p>
       <form onSubmit={handleAddNewTopping}>
         <TextField
           margin="normal"
-          id="newTopping"
           required
+          id="newTopping"
+          label="enter new topping"
+          placeholder="enter new topping"
           value={newTopping.name} 
           onChange={handleSetNewTopping}
-          >
-        </TextField>
+          />
         {errors.length > 0 && (
           <ul style={{ color: "red" }}>
             {errors.map((error) => (
@@ -85,10 +87,10 @@ function StoreOwner({toppingsArray, setToppingsArray}) {
         <Button 
         style={{marginTop: "30px", marginLeft: "10px"}} 
         variant="contained" 
-        type="Submit">Submit</Button>
+        type="Submit">Add Topping</Button>
       </form>
     </div>
-    <Container style={rootStyle} sx={{height: 1000, width: 1100}}>
+    <Container style={rootStyle} >
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {renderToppings(toppingsArray)}

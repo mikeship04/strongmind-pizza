@@ -7,7 +7,9 @@ import { Card,
   Box, 
   TextField, 
   Button, 
-  CardActionArea } from '@mui/material'
+  CardActionArea,
+  IconButton} from '@mui/material'
+  import { Delete } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -55,16 +57,19 @@ function Topping({topping, deleteTopping, updateTopping}) {
   }
 
   return (
-    <Grid>
+    <Grid item xs={2}>
       <Card
       onClick={handleOpen}
-      sx={{ ':hover': {boxShadow: 20, }}}
+      sx={{':hover': {boxShadow: 20, }}}
       >
         <CardActionArea>
           <CardContent>
-            <Typography>{topping.name}</Typography>
+            <Typography variant="h5">{topping.name}</Typography>
           </CardContent>
         </CardActionArea>
+        <IconButton onClick={handleDelete} aria-label="delete">
+              <Delete />
+            </IconButton>
       </Card>
       <Modal
       open={open}
@@ -83,8 +88,7 @@ function Topping({topping, deleteTopping, updateTopping}) {
           value={editTopping}
           onChange={handleEditTopping}
           />
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Edit Topping</Button>
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} onClick={handleDelete} variant="contained">Delete</Button>
+        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Save Changes</Button>
         </form>
       </Box>
       </Modal>
