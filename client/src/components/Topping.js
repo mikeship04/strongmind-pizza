@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Grid from '@mui/material/Unstable_Grid2'
+import Grid from '@mui/material/Grid'
 import { Card, 
   CardContent, 
   Typography, 
@@ -65,39 +65,39 @@ function Topping({topping, deleteTopping, updateTopping}) {
   }
 
   return (
-    <Grid item xs={2}>
-      <Card sx={{':hover': {boxShadow: 20, }}}>
+    <Grid  item xs={12} sm={6} md={3}>
+      <Card
+      elevation={3} 
+      sx={{':hover': {boxShadow: 20, }}}>
         <CardActionArea onClick={handleOpen}>
           <CardContent>
             <Typography variant="h5">{topping.name}</Typography>
           </CardContent>
         </CardActionArea>
-        <IconButton onClick={handleDelete} aria-label="delete">
-              <Delete />
-            </IconButton>
-      </Card>
+          <IconButton onClick={handleDelete} aria-label="delete">
+            <Delete />
+          </IconButton>
       <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
       >
-      <Box sx={style}>
-        <form onSubmit={handleUpdate}>
-          <TextField
-          margin="normal"
-          id="name"
-          required
-          label={topping.name}
-          placeholder={topping.name}
-          value={editTopping}
-          onChange={handleEditTopping}
-          />
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Save Changes</Button>
-        <Button style={{justifyContent: "flex-end"}} onClick={handleClose}>x</Button>
-        </form>
-      </Box>
+        <Box sx={style}>
+          <form onSubmit={handleUpdate}>
+            <TextField
+              margin="normal"
+              id="name"
+              required
+              label={topping.name}
+              placeholder={topping.name}
+              value={editTopping}
+              onChange={handleEditTopping}
+            />
+          <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Save Changes</Button>
+          <Button style={{justifyContent: "flex-end"}} onClick={handleClose}>x</Button>
+          </form>
+        </Box>
       </Modal>
+    </Card>
     </Grid>
   )
 }

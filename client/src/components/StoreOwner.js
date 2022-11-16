@@ -1,4 +1,4 @@
-import { Box, Grid, TextField, Button } from '@mui/material'
+import { Grid, TextField, Button } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
 import { useState } from 'react'
@@ -81,12 +81,12 @@ function StoreOwner({toppingsArray, setToppingsArray, deleteTopping}) {
         type="Submit">Add Topping</Button>
       </form>
     </div>
-    <Container style={rootStyle} >
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          {renderToppings(toppingsArray)}
+    <Container style={rootStyle}>
+        <Grid 
+        container
+        spacing={3}>
+            {renderToppings(toppingsArray)}
         </Grid>
-      </Box>
     </Container>
     </>
   )

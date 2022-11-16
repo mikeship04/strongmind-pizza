@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PizzaToppings from './PizzaToppings'
 import ToppingCheckBox from './ToppingCheckBox'
-import Grid from '@mui/material/Unstable_Grid2/Grid2'
+import Grid from '@mui/material/Grid'
 import { 
   Card, 
   CardContent, 
@@ -104,11 +104,11 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
   return (
     <>
     <Grid
-    sx={{ ':hover': {boxShadow: 20, }}}
+    item xs={12} sm={6} md={3}
     >
       <Card 
       onClick={handleOpen}
-      sx={{ maxWidth: 250}}>
+      sx={{ maxWidth: 250, ':hover': {boxShadow: 20, }}}>
       <CardActionArea>
           <CardContent>
             <Typography variant="h5">{pizza.name}</Typography>
@@ -119,8 +119,6 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
       <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
         <form onSubmit={handleUpdatePizza}>

@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import Pizza from './Pizza'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import Grid from '@mui/material/Unstable_Grid2/Grid2'
-import { Container, Box } from '@mui/system'
+import Grid from '@mui/material/Grid'
+import { Container } from '@mui/system'
 import NewPizzaform from './NewPizzaform'
 
 function Chefs({topping}) {
@@ -13,6 +13,7 @@ function Chefs({topping}) {
   const [errors, setErrors] = useState([])
   let navigate = useNavigate()
   const [pizza, setPizza] = useState()
+  const  rootStyle = { marginTop: '70px' }
 
   useEffect(() => {
     fetch("/pizzas")
@@ -102,12 +103,12 @@ function Chefs({topping}) {
         handleNewPizza={handleNewPizza}
         final={finalToppings}/>
     </div>
-    <Container sx={{height: 1000, width: 1100}}>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm:2, md: 3 }}>
+    <Container style={rootStyle}>
+        <Grid 
+        container 
+        spacing={3}>
           {renderPizza(pizza)}
         </Grid>
-      </Box>
     </Container>
     </>
   )
