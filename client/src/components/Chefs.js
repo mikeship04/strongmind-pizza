@@ -1,19 +1,24 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import Pizza from './Pizza'
-import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 import Grid from '@mui/material/Grid'
 import { Container } from '@mui/system'
+import Pizza from './Pizza'
 import NewPizzaform from './NewPizzaform'
 
 function Chefs({topping}) {
   const [newPizza, setNewPizza] = useState('')
   const [editToppings, setEditToppings] = useState([])
   const [errors, setErrors] = useState([])
-  let navigate = useNavigate()
   const [pizza, setPizza] = useState()
   const  rootStyle = { marginTop: '70px' }
+  let navigate = useNavigate()
+  
+  const pizzaObject = {
+    name: `${newPizza}`,
+    toppings: [editToppings]
+  }
 
   useEffect(() => {
     fetch("/pizzas")
@@ -23,11 +28,6 @@ function Chefs({topping}) {
 
   function handleNewPizza(e){
     setNewPizza(e.target.value)
-  }
-
-  const pizzaObject = {
-    name: `${newPizza}`,
-    toppings: [editToppings]
   }
 
   function handleAddPizza(e){
@@ -88,20 +88,20 @@ function Chefs({topping}) {
 
   return (
     <>
-    <Button 
-    variant="contained" 
-    style={{marginTop: "20px", marginLeft: "30px"}} 
-    onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
     <div>
-      <h1>Pizza Chefs!</h1>
-        <p>Click on a pizza to manage or remove!</p>
-        <NewPizzaform 
-        topping={topping} 
-        newPizza={newPizza} 
-        errors={errors} 
-        handleAddPizza={handleAddPizza} 
-        handleNewPizza={handleNewPizza}
-        final={finalToppings}/>
+      <Button 
+      variant="contained" 
+      style={{marginTop: "20px", marginLeft: "30px"}} 
+      onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
+        <h1>Pizza Chefs!</h1>
+          <p>Click on a pizza to manage or remove!</p>
+          <NewPizzaform 
+          topping={topping} 
+          newPizza={newPizza} 
+          errors={errors} 
+          handleAddPizza={handleAddPizza} 
+          handleNewPizza={handleNewPizza}
+          final={finalToppings}/>
     </div>
     <Container style={rootStyle}>
         <Grid 

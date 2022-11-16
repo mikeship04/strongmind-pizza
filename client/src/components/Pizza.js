@@ -24,7 +24,14 @@ import {
     p: 4,
   };
 
-function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editToppings, setEditToppings}) {
+function Pizza({
+  pizza, 
+  deletePizza, 
+  updatePizza, 
+  topping, 
+  finalToppings, 
+  editToppings, 
+  setEditToppings}) {
   const [editPizza, setEditPizza] = useState(pizza.name)
   const [errors, setErrors] = useState([])
   const [open, setOpen] = useState(false)
@@ -111,8 +118,8 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
       sx={{ maxWidth: 250, ':hover': {boxShadow: 20, }}}>
       <CardActionArea>
           <CardContent>
-            <Typography variant="h5">{pizza.name}</Typography>
-              <Typography variant="h6">{renderToppings}</Typography>
+            <Typography sx={{ fontFamily: 'Monospace', fontWeight: 'bold', m:1 }} variant="h4">{pizza.name}</Typography>
+              <Typography sx={{ fontFamily: 'Monospace' }}variant="subtitle2">{renderToppings}</Typography>
           </CardContent>
         </CardActionArea>
       </Card>
