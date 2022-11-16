@@ -1,12 +1,13 @@
 import React, {useState} from 'react'
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 
-function ToppingCheckBox({topping, finalToppings, isPreSelected=false}) {
+function ToppingCheckBox({topping, finalToppings, isPreSelected=false, setUpdateToppings}) {
   const [isChecked, setIsChecked] = useState(isPreSelected)
 
   const handleChange = (e) => {
     setIsChecked(!isChecked)
     finalToppings(e.target.value)
+    setUpdateToppings(e.target.value)
   }
 
   return (

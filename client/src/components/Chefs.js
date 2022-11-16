@@ -28,7 +28,6 @@ function Chefs({topping}) {
     name: `${newPizza}`,
     toppings: [editToppings]
   }
-  console.log(pizzaObject)
 
   function handleAddPizza(e){
     e.preventDefault()

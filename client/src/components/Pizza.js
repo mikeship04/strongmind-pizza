@@ -30,10 +30,6 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
   const [open, setOpen] = useState(false)
   const handleOpen = () => {
   setOpen(true)
-  // const zaIds = pizza.toppings.map((topping) => {
-  //   return topping.id
-  // })
-  // setEditToppings(zaIds)
   }
   const handleClose = () => {
     setOpen(false)
@@ -52,17 +48,26 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     .then(deletePizza(pizza.id))
   }
 
-  // const pizzaIds = pizza.toppings.map((topping) => {
-  //   return topping.id
-  // })
+  const pizzaIds = pizza.toppings.map((topping) => {
+    return topping.id
+  })
 
-  //newarray is pizzaids + edit toppings
-  // pizzaIDS = its own state, and update with Topping checkbox setter
+  const [newToppingArray, setNewToppingArray] = useState([...pizzaIds, ...editToppings])
+
+  function setUpdateToppings(id){
+    const numId = parseInt(id)
+    const idx = newToppingArray.indexOf(numId)
+    if (newToppingArray.includes(numId)){
+        newToppingArray.splice(idx, 1)
+    } else{
+      setNewToppingArray([...newToppingArray, numId])
+    }
+  }
+
   const pizzaObject = {
     name: `${editPizza}`,
-    // toppings: [...pizzaIds]
+    toppings: [newToppingArray]
   }  
-  // console.log(pizzaObject)
 
   function handleUpdatePizza(e){
     e.preventDefault()
@@ -90,6 +95,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
   const renderAvailabletoppings = topping?.map((t) => {
     return <ToppingCheckBox 
     finalToppings={finalToppings}
+    setUpdateToppings={setUpdateToppings}
     key={t.id} 
     topping={t}
     isPreSelected={pizza?.toppings?.filter((top) => top.id === t.id).length > 0}/>
