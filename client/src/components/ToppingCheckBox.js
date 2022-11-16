@@ -4,7 +4,6 @@ import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 function ToppingCheckBox({topping, finalToppings, isPreSelected=false}) {
   const [isChecked, setIsChecked] = useState(isPreSelected)
 
-  //if isChecked is true finalToppings(e.target.value) finalToppings('')
   const handleChange = (e) => {
     setIsChecked(!isChecked)
     finalToppings(e.target.value)

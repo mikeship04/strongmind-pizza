@@ -24,11 +24,11 @@ function Chefs({topping}) {
     setNewPizza(e.target.value)
   }
 
-  console.log(editToppings)
   const pizzaObject = {
     name: `${newPizza}`,
     toppings: [editToppings]
   }
+  console.log(pizzaObject)
 
   function handleAddPizza(e){
     e.preventDefault()

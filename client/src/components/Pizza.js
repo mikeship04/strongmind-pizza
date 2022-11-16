@@ -40,6 +40,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     setEditPizza('')
     setEditToppings('')
   }
+
   const renderToppings = pizza?.toppings?.map((t) => {
     return <PizzaToppings key={t.id} toppings={t}/>
   })
@@ -51,16 +52,17 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
     .then(deletePizza(pizza.id))
   }
 
-  const pizzaIds = pizza.toppings.map((topping) => {
-    return topping.id
-  })
+  // const pizzaIds = pizza.toppings.map((topping) => {
+  //   return topping.id
+  // })
 
+  //newarray is pizzaids + edit toppings
+  // pizzaIDS = its own state, and update with Topping checkbox setter
   const pizzaObject = {
     name: `${editPizza}`,
-    toppings: [...pizzaIds, ...editToppings]
-  }
+    // toppings: [...pizzaIds]
+  }  
   // console.log(pizzaObject)
-  
 
   function handleUpdatePizza(e){
     e.preventDefault()
@@ -84,7 +86,7 @@ function Pizza({pizza, deletePizza, updatePizza, topping, finalToppings, editTop
   function handleEditPizza(e){
     setEditPizza(e.target.value)
   }
-  
+
   const renderAvailabletoppings = topping?.map((t) => {
     return <ToppingCheckBox 
     finalToppings={finalToppings}
