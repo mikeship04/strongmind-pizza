@@ -1,11 +1,8 @@
-import React, { useState} from 'react'
+import React from 'react'
 import { Button, TextField, Modal, Box } from '@mui/material'
 import ToppingCheckBox from './ToppingCheckBox'
 
-function NewPizzaform({errors, handleAddPizza, handleNewPizza, newPizza, topping, final}) {
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+function NewPizzaform({errors, handleAddPizza, handleNewPizza, newPizza, topping, final, handleOpen, handleClose, open}) {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -49,6 +46,7 @@ function NewPizzaform({errors, handleAddPizza, handleNewPizza, newPizza, topping
           >
         </TextField>
         <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="Submit">Add Pizza!</Button>
+        <Button style={{justifyContent: "flex-end"}} onClick={handleClose}>x</Button>
         {errors.length > 0 && (
           <ul style={{ color: "red" }}>
             {errors.map((error) => (

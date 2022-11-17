@@ -6,12 +6,16 @@ import Grid from '@mui/material/Grid'
 import { Container } from '@mui/system'
 import Pizza from './Pizza'
 import NewPizzaform from './NewPizzaform'
+import { SettingsApplicationsRounded } from '@mui/icons-material'
 
 function Chefs({topping}) {
   const [newPizza, setNewPizza] = useState('')
   const [editToppings, setEditToppings] = useState([])
   const [errors, setErrors] = useState([])
   const [pizza, setPizza] = useState()
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
   const  rootStyle = { marginTop: '70px' }
   let navigate = useNavigate()
   
@@ -46,6 +50,7 @@ function Chefs({topping}) {
     })
     setEditToppings([])
     e.target.reset()
+    handleClose()
   }
   
   function deletePizza(id){
@@ -95,7 +100,10 @@ function Chefs({topping}) {
       onClick={() => navigate(-1)}>StrongMind Pizza Home</Button>
         <h1>Pizza Chefs!</h1>
           <p>Click on a pizza to manage or remove!</p>
-          <NewPizzaform 
+          <NewPizzaform
+          handleOpen={handleOpen}
+          handleClose={handleClose}
+          open={open} 
           topping={topping} 
           newPizza={newPizza} 
           errors={errors} 

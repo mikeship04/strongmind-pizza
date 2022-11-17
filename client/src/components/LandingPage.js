@@ -15,19 +15,19 @@ function LandingPage() {
   
   return (
     <>
-      <img width="800" height ="600" src="https://iniziopizza.com/wp-content/uploads/1-1-of-1-2-2048x1174.jpg" alt="some delicious looking pizzas"></img>
+    <Button 
+    onClick={handleStore} 
+    variant="contained"
+    style={{marginTop: "30px"}} 
+    >Store Owners!</Button>
+    <Button 
+    onClick={handleChef} 
+    variant="contained"
+    style={{marginTop: "30px", marginLeft: "10px"}} 
+    >Pizza Chefs!</Button>
+      <h1>Welcome to Strongmind Pizza Editor!</h1>
+      <img width="50% vw" height ="60% vh" src="https://iniziopizza.com/wp-content/uploads/1-1-of-1-2-2048x1174.jpg" alt="some delicious looking pizzas"></img>
     <div>
-      <p>Welcome to Strongmind Pizza Editor!</p>
-      <Button 
-      onClick={handleStore} 
-      variant="contained"
-      style={{marginTop: "30px"}} 
-      >Store Owners!</Button>
-      <Button 
-      onClick={handleChef} 
-      variant="contained"
-      style={{marginTop: "30px", marginLeft: "10px"}} 
-      >Pizza Chefs!</Button>
     </div>
     </>
   )

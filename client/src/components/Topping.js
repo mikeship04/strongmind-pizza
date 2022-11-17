@@ -31,7 +31,7 @@ function Topping({topping, deleteTopping, updateTopping}) {
     setOpen(false) 
     setEditTopping('')
   }
-
+  
   function handleUpdate(e){
     e.preventDefault()
     fetch(`toppings/${topping.id}`, {

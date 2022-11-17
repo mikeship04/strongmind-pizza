@@ -40,7 +40,7 @@ function Pizza({
   }
   const handleClose = () => {
     setOpen(false)
-    setEditPizza('')
+    setEditPizza(pizza.name)
     setEditToppings('')
   }
 
@@ -131,7 +131,6 @@ function Pizza({
         <form onSubmit={handleUpdatePizza}>
           <TextField
           margin="normal"
-          required
           id="name"
           label={pizza.name}
           placeholder={pizza.name}
@@ -145,8 +144,9 @@ function Pizza({
               ))}
             </ul>
           )}
-        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Edit Pizza</Button>
+        <Button style={{marginTop: "30px", marginLeft: "10px"}} variant="contained" type="submit">Save</Button>
         <Button style={{marginTop: "30px", marginLeft: "10px"}} onClick={handleDelete} variant="contained">Delete</Button>
+        <Button onClick={handleClose}>x</Button>
         {renderAvailabletoppings}
         </form>
         </Box>
